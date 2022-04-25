@@ -12,26 +12,12 @@
 </head>
 
 <body>
-    <div class="app">
-        <h1> Área de Login </h1>
-        <div id="deviceready" class="blink">
-            <form>
-                <div class="row mb-3">
-                    <label for="inputEmail3" class="col-sm-2 col-form-label"> Email </label>
-                    <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail">
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label for="inputPassword3" class="col-sm-2 col-form-label"> Senha </label>
-                    <div class="col-sm-10">
-                        <input type="password" class="form-control" id="inputPassword">
-                    </div>
-                </div>
-                <br>
-                <button type="submit" onclick="Login()" class="btn btn-primary"> Entrar </button>
-            </form>
-        </div>
+    <div class="Foto">
+        <center>
+        <button type="button" id="TirarFoto"> Tirar Foto </button>
+        <br> <br>
+        <img src="" height="40" width="50" id="Foto" alt="FotoTirada">
+    </center>
     </div>
     <script src="cordova.js"></script>
     <script src="js/index.js"></script>

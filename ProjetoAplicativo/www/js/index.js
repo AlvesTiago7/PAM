@@ -1,16 +1,47 @@
 document.addEventListener('deviceready', onDeviceReady, false);
 
-function Login() {
-    let usuarioinformado = document.getElementById("inputEmail").value;
-    let senhainformado = document.getElementById("inputPassword").value;
-    if (usuarioinformado == "" && senhainformado == "") {
-        console.log("Tente Novamente!")
-    } else {
-        console.log("Seja Bem-vindo!")
-    }
+function onSucesso(imageURI){
+
+    let tagImg = document.getElementById("Foto")
+    
+    tagImg.src = "data:image/jpeg;base664,"+imageURI;
+}
+
+
+function onFalha(err){
+    console.dir(err);
+
+}
+
+
+
+function AbrirCamera(){
+
+    navigator.camera.getPicture(onSucesso,onFalha,opcoes);
+
+
 }
 
 function onDeviceReady() {
     console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    document.getElementById('deviceready').classList.add('ready');
-}
+    let BtnAbrirCamera = document.getElementById('TirarFoto');
+
+
+    var opcoes = {
+
+        quality: 50,
+        destinationType: Camera.DestinationType.DATA_URL,
+        saveToPhotoAlbum: false,
+        cameraDirection: 1,
+        sourceType: Camera.PictureSourceType.CAMERA
+    
+    }
+
+    BtnAbrirCamera.addEventListener('click', function () {
+       alert ("Vamos Tirar uma Foto");
+        navigator.camera.getPicture(onSucesso,onFalha,opcoes);
+        
+    })
+
+
+}       
