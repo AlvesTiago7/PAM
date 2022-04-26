@@ -1,47 +1,54 @@
-document.addEventListener('deviceready', onDeviceReady, false);
+var app = {
 
-function onSucesso(imageURI){
-
-    let tagImg = document.getElementById("Foto")
+    initialize: function() {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
     
-    tagImg.src = "data:image/jpeg;base664,"+imageURI;
-}
+    onDeviceReady: function() {
+        var btnTirarFoto = document.getElementById("btnTirarFoto");
+        btnTirarFoto.addEventListener('click',this.tirarFoto);
+        this.pictureSource=navigator.camera.PictureSourceType;
+        this.destinationType=navigator.camera.DestinationType;
+        console.dir(this.pictureSource);
+        console.dir(this.destinationType);
+    },
 
+    tirarFoto: function(){
+        if (!navigator.camera) {
+            alert("Plugin Cordova da Camera nao Instalado", "Erro!!!");
+            return;
+        }
 
-function onFalha(err){
-    console.dir(err);
+        var options =   {   quality: 50,
+                            destinationType: Camera.DestinationType.FILE_URI,
+                            encodingType: Camera.EncodingType.JPEG,
+                            mediaType: Camera.MediaType.PICTURE,
+                            sourceType: 1,
+                            encodingType: 0
+                        };
 
-}
+        let options2 = {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            allowEdit: false,
+            saveToPhotoAlbum: false,
+            cameraDirection: 1,
+            sourceType: Camera.PictureSourceType.CAMERA
+        };
 
+        navigator.camera.getPicture(
+            function(imgData) {
+                var imgHtmlTag = document.getElementById("imgHtmlTag");
+                alert(imgHtmlTag);
+                imgHtmlTag.src = "data:image/jpeg;base64,"+imgData;
+            },
+            function(e) {
+                alert(e);
+                alert('Plugin Camera Instalado, mas getPicture falhou', 'Error');
+            }, options2);
 
+        return false;     
+    }            
+};
 
-function AbrirCamera(){
-
-    navigator.camera.getPicture(onSucesso,onFalha,opcoes);
-
-
-}
-
-function onDeviceReady() {
-    console.log('Running cordova-' + cordova.platformId + '@' + cordova.version);
-    let BtnAbrirCamera = document.getElementById('TirarFoto');
-
-
-    var opcoes = {
-
-        quality: 50,
-        destinationType: Camera.DestinationType.DATA_URL,
-        saveToPhotoAlbum: false,
-        cameraDirection: 1,
-        sourceType: Camera.PictureSourceType.CAMERA
-    
-    }
-
-    BtnAbrirCamera.addEventListener('click', function () {
-       alert ("Vamos Tirar uma Foto");
-        navigator.camera.getPicture(onSucesso,onFalha,opcoes);
-        
-    })
-
-
-}       
+app.initialize();
