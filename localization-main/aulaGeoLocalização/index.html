@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocalização do Navegador</title>
+    <script>
+        const onLocationSucess = function(geoloc){
+            console.log("cost getGeoposition = function(){...");
+            console.log(geoloc);
+        }
+        const onErrorLocation = function(eRR){
+            console.log("cost getGeoposition = function(){...");
+            console.log(eRR);
+        }
+        
+        const getGeoposition = function(){
+            console.log("cost getGeoposition = function(){...");
+
+            if(navigator.geolocation) {
+                console.log("cost getGeoposition = function(){...");
+
+                navigator.geolocation.getCurrentPosition(
+                    onLocationSucess, onErrorLocation);
+
+            }else{
+                throw new error("seu navegador nao suporta geolocalização");
+            }
+        }
+        funcaoquerodaapoocarregmentodapagina = function(){
+            console.log("essa fucao roda apos o carregamento da pagina...");
+            document.getElementById("btnObtemLatLongitude");
+            document.addEventListener('click',getGeoposition);
+        }
+        
+    </script>
+</head>
+<body onload="funcaoquerodaapoocarregmentodapagina();">
+
+    <h1>Obtendo a Geolocalização do Dispositivo</h1>
+    <br><br>
+    Latitude:
+    <br><br>
+    <input type="text" id="latitude"> </input>
+    <br><br>
+    Longitude:
+    <br><br>
+    <input type="text" id="longitude"></input>
+    <br><br>
+    <button type="button" id="btnObtemLatLongitude">OK</button>
+    
+</body>
+</html>
