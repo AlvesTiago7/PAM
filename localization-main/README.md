@@ -1,2 +1,0 @@
-# localization
-Geolocalização do Navegador
